@@ -9,28 +9,28 @@
           <option name="fileUrl" value="file://$PROJECT_DIR$/.gitignore" />
         </OpenedFileInfo>
         <OpenedFileInfo>
-          <option name="caretOffset" value="201" />
+          <option name="caretOffset" value="38" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/auto_test/main.c" />
+        </OpenedFileInfo>
+        <OpenedFileInfo>
+          <option name="caretOffset" value="97" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/auto_test/test1.h" />
+        </OpenedFileInfo>
+        <OpenedFileInfo>
+          <option name="caretOffset" value="70" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/auto_test/test1" />
+        </OpenedFileInfo>
+        <OpenedFileInfo>
+          <option name="caretOffset" value="0" />
           <option name="fileUrl" value="file://$PROJECT_DIR$/auto_test/Makefile" />
         </OpenedFileInfo>
         <OpenedFileInfo>
-          <option name="caretOffset" value="0" />
-          <option name="fileUrl" value="file://$PROJECT_DIR$/CMakeLists.txt" />
+          <option name="caretOffset" value="184" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/Core/Inc/sys_app/command_line.h" />
         </OpenedFileInfo>
         <OpenedFileInfo>
-          <option name="caretOffset" value="371" />
+          <option name="caretOffset" value="42" />
           <option name="fileUrl" value="file://$PROJECT_DIR$/Core/Src/sys_app/command_line.c" />
-        </OpenedFileInfo>
-        <OpenedFileInfo>
-          <option name="caretOffset" value="1027" />
-          <option name="fileUrl" value="file://$PROJECT_DIR$/Core/Inc/main.h" />
-        </OpenedFileInfo>
-        <OpenedFileInfo>
-          <option name="caretOffset" value="5150" />
-          <option name="fileUrl" value="file://$PROJECT_DIR$/Core/Src/usart.c" />
-        </OpenedFileInfo>
-        <OpenedFileInfo>
-          <option name="caretOffset" value="0" />
-          <option name="fileUrl" value="file://$PROJECT_DIR$/auto_test/main.c" />
         </OpenedFileInfo>
       </list>
     </option>

@@ -1,1 +1,4 @@
 error: 1
+error: 0
+this is ok
+size: 20, string_size: 11, free space: 9

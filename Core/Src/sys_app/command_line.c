@@ -10,6 +10,7 @@
 
 #include "sys_app/command_line.h"
 #include <stdlib.h>
+#include <string.h>
 typedef command_line_input_buffer_t buffer_t;
 
 
@@ -25,7 +26,7 @@ void command_line_input_buffer_init(buffer_t *buffer, int buffer_size) {
     buffer->data[0] = 'Z';
 }
 
-int copy_to_command_line_input_buffer(buffer_t *buffer, const void *source, size_t size) {
+enum Command_line_error copy_to_command_line_input_buffer(buffer_t *buffer, const void *source, size_t size) {
     uint32_t n = size / sizeof(char);
     if (n <= get_free_space(buffer)) {
         if (n + buffer->tail < buffer->size) {
@@ -43,16 +44,29 @@ int copy_to_command_line_input_buffer(buffer_t *buffer, const void *source, size
     }
 }
 
-int get_free_space(buffer_t * buffer) {
-    if(buffer->tail < 0) { // 刚刚初始化
-        return buffer->size;
-    }
+int get_used_space (const buffer_t * buffer) {
+    const int head = buffer->head;
+    int tail = buffer->tail; // 想象把环形缓冲区展开成一条纸带
+    tail = head <= tail + 1 ? tail : tail + buffer->size;
+    return tail - buffer->head + 1;
+}
 
-    if (buffer->head <= buffer->tail) { // get_head_tail_distance(buffer) + 1 是已占用的空间
-        return buffer->size - (get_head_tail_distance(buffer) + 1);
-    }
+int get_free_space(buffer_t * buffer) {
+    return buffer->size - get_used_space(buffer);
 }
 
 int get_head_tail_distance(buffer_t *buffer) {
     return buffer->tail > buffer->head ? buffer->tail - buffer->head : buffer->head - buffer->tail;
 }
+
+char pop(buffer_t * buffer) {
+    char val = buffer->data[buffer->head];
+}
+
+enum Command_line_error  give_up_element(buffer_t * buffer, int n) {
+    if (n > get_used_space(buffer)) {
+        return command_line_no_so_much_element;
+    }
+
+}
+
