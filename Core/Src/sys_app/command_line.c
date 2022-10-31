@@ -10,8 +10,6 @@
 
 #include "sys_app/command_line.h"
 #include <stdlib.h>
-#include "stm32f4xx_it.h"
-#include "main.h"
 typedef command_line_input_buffer_t buffer_t;
 
 
@@ -57,25 +55,4 @@ int get_free_space(buffer_t * buffer) {
 
 int get_head_tail_distance(buffer_t *buffer) {
     return buffer->tail > buffer->head ? buffer->tail - buffer->head : buffer->head - buffer->tail;
-}
-
-
-extern UART_HandleTypeDef huart1;
-extern DMA_HandleTypeDef hdma_usart1_rx;
-void USART1_IRQHandler(void)
-{
-    /* USER CODE BEGIN USART1_IRQn 0 */
-
-    /* USER CODE END USART1_IRQn 0 */
-    HAL_UART_IRQHandler(&huart1);
-    /* USER CODE BEGIN USART1_IRQn 1 */
-    if (__HAL_UART_GET_FLAG(&huart1, UART_FLAG_IDLE) != RESET) { // 确认发生idle中断
-        __HAL_UART_CLEAR_FLAG(&huart1, UART_FLAG_IDLE); // 清除idle标志位
-        HAL_UART_DMAStop(&huart1);
-        int len = RX_BUFFER_LEN - __HAL_DMA_GET_COUNTER(&hdma_usart1_rx);
-//      HAL_UART_Transmit_DMA(&huart1, rx_buffer, len);
-        copy_to_command_line_input_buffer(&commandLineInputBuffer, rx_buffer, len * sizeof(char));
-        HAL_UART_Receive_DMA(&huart1, rx_buffer, RX_BUFFER_LEN);
-    }
-    /* USER CODE END USART1_IRQn 1 */
 }
