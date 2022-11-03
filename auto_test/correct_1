@@ -2,3 +2,6 @@ error: 1
 error: 0
 this is ok
 size: 20, string_size: 11, free space: 9
+this is ok with 0 elements left
+size: 20, string_size: 15, free space: 5
+this is ok too with 0 elements left

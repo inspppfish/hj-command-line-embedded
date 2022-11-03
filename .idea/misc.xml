@@ -9,27 +9,35 @@
           <option name="fileUrl" value="file://$PROJECT_DIR$/.gitignore" />
         </OpenedFileInfo>
         <OpenedFileInfo>
-          <option name="caretOffset" value="38" />
-          <option name="fileUrl" value="file://$PROJECT_DIR$/auto_test/main.c" />
-        </OpenedFileInfo>
-        <OpenedFileInfo>
-          <option name="caretOffset" value="97" />
+          <option name="caretOffset" value="280" />
           <option name="fileUrl" value="file://$PROJECT_DIR$/auto_test/test1.h" />
         </OpenedFileInfo>
         <OpenedFileInfo>
-          <option name="caretOffset" value="70" />
-          <option name="fileUrl" value="file://$PROJECT_DIR$/auto_test/test1" />
+          <option name="caretOffset" value="1641" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/auto_test/main1.c" />
         </OpenedFileInfo>
         <OpenedFileInfo>
-          <option name="caretOffset" value="0" />
-          <option name="fileUrl" value="file://$PROJECT_DIR$/auto_test/Makefile" />
+          <option name="caretOffset" value="185" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/auto_test/auto_test.sh" />
         </OpenedFileInfo>
         <OpenedFileInfo>
-          <option name="caretOffset" value="184" />
+          <option name="caretOffset" value="473" />
           <option name="fileUrl" value="file://$PROJECT_DIR$/Core/Inc/sys_app/command_line.h" />
         </OpenedFileInfo>
         <OpenedFileInfo>
-          <option name="caretOffset" value="42" />
+          <option name="caretOffset" value="446" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/auto_test/Makefile" />
+        </OpenedFileInfo>
+        <OpenedFileInfo>
+          <option name="caretOffset" value="2" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/auto_test/test2.h" />
+        </OpenedFileInfo>
+        <OpenedFileInfo>
+          <option name="caretOffset" value="244" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/auto_test/main2.c" />
+        </OpenedFileInfo>
+        <OpenedFileInfo>
+          <option name="caretOffset" value="5732" />
           <option name="fileUrl" value="file://$PROJECT_DIR$/Core/Src/sys_app/command_line.c" />
         </OpenedFileInfo>
       </list>

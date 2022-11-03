@@ -186,7 +186,7 @@ void USART1_IRQHandler(void)
         HAL_UART_DMAStop(&huart1);
         int len = RX_BUFFER_LEN - __HAL_DMA_GET_COUNTER(&hdma_usart1_rx);
 //      HAL_UART_Transmit_DMA(&huart1, rx_buffer, len);
-        copy_to_command_line_input_buffer(&commandLineInputBuffer, rx_buffer, len * sizeof(char));
+        copy_to_command_line_buffer(&commandLineInputBuffer, rx_buffer, len * sizeof(char), len);
         HAL_UART_Receive_DMA(&huart1, rx_buffer, RX_BUFFER_LEN);
     }
     /* USER CODE END USART1_IRQn 1 */

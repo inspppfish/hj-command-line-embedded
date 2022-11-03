@@ -55,7 +55,7 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-command_line_input_buffer_t commandLineInputBuffer;
+command_line_buffer_t commandLineInputBuffer;
 uint8_t rx_buffer[RX_BUFFER_LEN];
 /* USER CODE END 0 */
 
@@ -90,7 +90,7 @@ int main(void)
   MX_DMA_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-  command_line_input_buffer_init(&commandLineInputBuffer, 10);
+    command_line_buffer_init(&commandLineInputBuffer, 10*sizeof(char), 10);
   /* USER CODE END 2 */
 
   /* Infinite loop */

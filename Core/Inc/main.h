@@ -58,7 +58,7 @@ void Error_Handler(void);
 
 /* Private defines -----------------------------------------------------------*/
 /* USER CODE BEGIN Private defines */
-extern command_line_input_buffer_t commandLineInputBuffer;
+extern command_line_buffer_t commandLineInputBuffer;
 extern uint8_t rx_buffer[RX_BUFFER_LEN];
 /* USER CODE END Private defines */
 

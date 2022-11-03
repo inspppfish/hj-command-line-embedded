@@ -1,14 +1,13 @@
-#test1
+#test
 echo -e "\033[34m\
-test1 : copy_to_command_line_input_buffer()\
+test1 : buffer
+test2 : util\
 \033[0m"
-var=$(make test1)
+var=$(make test)
 if [ "$var" = "" ]; then
-  echo "test1 passed"
+  echo "test passed"
 else
   >&2 echo -e "\033[31m\
-test1 not passed\
+test not passed\
 \033[0m"
 fi
-
-#test2
