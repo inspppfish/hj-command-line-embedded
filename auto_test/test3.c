@@ -15,14 +15,15 @@ int main () {
     copy_to_command_line_buffer(
         &buffer, "setGimbalAngle -p100 -r0 -y265\n", sizeof("setGimbalAngle -p100 -r0 -y265\n"), sizeof ("setGimbalAngle -p100 -r0 -y265\n")/sizeof (char)
     );
-    statement_t statement;
-    statement_init(&statement, 100);
-    printf("%s\n", error_analyze(command_line_buffer_analyze(&buffer, &statement)));
-    printf("%s\n", statement.data);
-
-    for (int i = 0; i< statement.argc; i++) {
-        printf("%s\n", statement.argv[i]);
+    command_t command;
+    statement_init(&command.statement, 100);
+    printf("%s\n", error_analyze(command_line_buffer_analyze(&buffer, &command.statement)));
+    for (int i = 0; i< command.statement.argc; i++) {
+        printf("%s\n", command.statement.argv[i]);
     }
+
+
+
 
 
     return 0;

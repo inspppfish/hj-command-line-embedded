@@ -1,6 +1,5 @@
 command_line_no_error
 setGimbalAngle
-setGimbalAngle
 -p100
 -r0
 -y265

@@ -49,8 +49,5 @@ int main () {
     command_line_pop_all(&buffer, a, sizeof (char));
     printf("%s with %d elements left\n", a, get_used_space(&buffer));
 
-
-
-
     return 0;
 }

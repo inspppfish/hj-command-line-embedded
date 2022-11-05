@@ -21,7 +21,6 @@
 
 typedef command_line_buffer_t buffer_t;
 typedef enum Command_line_error error_t;
-#define asChar *(char *)
 
 int get_free_space(buffer_t *buffer);
 int get_head_tail_distance(buffer_t *buffer);
@@ -188,12 +187,13 @@ error_t command_line_buffer_analyze (buffer_t * buffer, statement_t * statement)
     } else {
         return command_line_no_complete_statement;
     }
+    return command_line_no_error;
 }
 
-///                        ///
-///       util             ///
-///                        ///
 
+            ///********///
+            ///* util *///
+            ///********///
 
 #define error_judge_condition(e) \
                     if (error == (e)) {\
@@ -208,10 +208,83 @@ char * error_analyze (error_t error) {
     else error_judge_condition(command_line_no_so_much_element)
     else error_judge_condition(command_line_no_complete_statement)
     else error_judge_condition(command_line_too_much_parameter)
+    else error_judge_condition(command_line_empty_name)
+    else error_judge_condition(command_line_no_match_type)
     else error_judge_condition(command_line_last_error)
     else {
         char * ans = malloc(sizeof ("unknown error"));
         ans = strcpy(ans, "unknown error");
         return ans;
     }
+}
+
+
+
+            ///******************///
+            ///* command_type_t *///
+            ///******************///
+
+error_t command_type_init(command_type_t * type, char * name, char * optName) {
+    int p = 0;
+    while (name[p]) {
+        p++;
+    } // may segfault
+    if (p){
+        type->name = malloc(p * sizeof(char));
+        strcpy(type->name, name);
+    } else {
+        type->name = NULL;
+        return command_line_empty_name;
+    }
+    p = 0;
+    while (optName[p]) {
+        p++;
+    } // may segfault
+    if (p) {
+        type->optName = malloc(p * sizeof(char));
+        strcpy(type->optName, optName);
+    }else {
+        type->optName = NULL;
+    }
+    return command_line_no_error;
+}
+
+int type_cmp(command_type_t * type, statement_t * statement) {
+    return strcmp(statement->argv[0], type->name);
+}
+
+error_t command_line_type_match(command_type_t type[], int n_type, statement_t * statement, command_type_t ** matched) {
+    for (int i = 0; i< n_type; i++) {
+        if (type_cmp(type + i, statement)) {
+            *matched = type + i;
+            return command_line_no_error;
+        }
+    }
+    return command_line_no_match_type;
+}
+
+error_t default_argument_store_handler(command_t * command) {
+    command_type_t * type = command->type;
+    statement_t * statement = &command->statement;
+    int c;
+    int n = 0;
+    while (1) {
+        (c = getopt(statement->argc, statement->argv, type->optName));
+        if (c == -1) {
+            break;
+        }
+        if (c == '?') {
+            return command_line_wrong_option_argument;
+        }
+        option_t * option = &command->options[n];
+        option->opt = c;
+        option->optArg =(int)strtol(optarg, NULL, 10);
+        option->opt_addr = optind -1 + statement->data;
+        option->optArg_addr = optarg;
+        n++;
+    }
+    if (n< MAX_OPTION_COUNT ){
+        command->options[n].opt = '\0';
+    }
+    return command_line_no_error;
 }
