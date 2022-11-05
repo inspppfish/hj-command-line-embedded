@@ -9,15 +9,15 @@
           <option name="fileUrl" value="file://$PROJECT_DIR$/.gitignore" />
         </OpenedFileInfo>
         <OpenedFileInfo>
-          <option name="caretOffset" value="280" />
+          <option name="caretOffset" value="42" />
           <option name="fileUrl" value="file://$PROJECT_DIR$/auto_test/test1.h" />
         </OpenedFileInfo>
         <OpenedFileInfo>
-          <option name="caretOffset" value="1641" />
-          <option name="fileUrl" value="file://$PROJECT_DIR$/auto_test/main1.c" />
+          <option name="caretOffset" value="53" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/auto_test/test1.c" />
         </OpenedFileInfo>
         <OpenedFileInfo>
-          <option name="caretOffset" value="185" />
+          <option name="caretOffset" value="82" />
           <option name="fileUrl" value="file://$PROJECT_DIR$/auto_test/auto_test.sh" />
         </OpenedFileInfo>
         <OpenedFileInfo>
@@ -25,20 +25,24 @@
           <option name="fileUrl" value="file://$PROJECT_DIR$/Core/Inc/sys_app/command_line.h" />
         </OpenedFileInfo>
         <OpenedFileInfo>
-          <option name="caretOffset" value="446" />
-          <option name="fileUrl" value="file://$PROJECT_DIR$/auto_test/Makefile" />
-        </OpenedFileInfo>
-        <OpenedFileInfo>
           <option name="caretOffset" value="2" />
           <option name="fileUrl" value="file://$PROJECT_DIR$/auto_test/test2.h" />
         </OpenedFileInfo>
         <OpenedFileInfo>
-          <option name="caretOffset" value="244" />
-          <option name="fileUrl" value="file://$PROJECT_DIR$/auto_test/main2.c" />
+          <option name="caretOffset" value="267" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/auto_test/test2.c" />
         </OpenedFileInfo>
         <OpenedFileInfo>
-          <option name="caretOffset" value="5732" />
+          <option name="caretOffset" value="3178" />
           <option name="fileUrl" value="file://$PROJECT_DIR$/Core/Src/sys_app/command_line.c" />
+        </OpenedFileInfo>
+        <OpenedFileInfo>
+          <option name="caretOffset" value="185" />
+          <option name="fileUrl" value="file://$APPLICATION_CONFIG_DIR$/scratches/scratch.mk" />
+        </OpenedFileInfo>
+        <OpenedFileInfo>
+          <option name="caretOffset" value="255" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/auto_test/Makefile" />
         </OpenedFileInfo>
       </list>
     </option>

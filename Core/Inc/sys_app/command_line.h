@@ -7,8 +7,8 @@
 
 #include <stdint.h>
 #include <string.h>
-
-#define COMMAND_LINE_INPUT_BUFFER_SIZE_DEFAULT 100
+#define MAX_TOKEN_COUNT 20
+#define MAX_OPTION_COUNT 20
 
 enum Command_line_error {
     command_line_no_error = 0,
@@ -33,16 +33,36 @@ typedef struct {
 
 void command_line_buffer_init(command_line_buffer_t *buffer, size_t size, int n);
 enum Command_line_error copy_to_command_line_buffer(command_line_buffer_t* buffer, const void * source, size_t size, int n);
-void * command_line_pop_all (command_line_buffer_t * buffer, void * arr);
+
+void * command_line_pop_all (command_line_buffer_t * buffer, void * arr, size_t single_size);
 char * error_analyze (enum Command_line_error error);
 
 
 typedef struct {
     int id;
     int argc;
-    char * argv[20]; //argv[argc] = NULL
+    char * argv[MAX_TOKEN_COUNT]; //argv[argc] = NULL
     char * data;
     char * end;
 } statement_t;
+
+typedef struct {
+    char * opt;
+    char * opArg;
+} option_t;
+
+typedef struct {
+    char * name;
+    char * optName;
+} command_type_t;
+
+typedef struct {
+    command_type_t * type;
+    statement_t * statement;
+    option_t options[MAX_OPTION_COUNT];
+} command_t;
+
+enum Command_line_error statement_init(statement_t * statement, size_t size);
+enum Command_line_error command_line_buffer_analyze (command_line_buffer_t * buffer, statement_t * statement);
 
 #endif //COMMAND_LINE_EMB_COMMAND_LINE_H

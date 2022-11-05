@@ -35,7 +35,7 @@ int main () {
 
     // 5
     char a[21];
-    char * end = command_line_pop_all(&buffer, a);
+    command_line_pop_all(&buffer, a, sizeof(char));
     printf("%s with %d elements left\n", a, get_used_space(&buffer));
 
     //5
@@ -46,7 +46,7 @@ int main () {
            buffer.size, (int)sizeof ("this is ok too"), get_free_space(&buffer));
 
     //6
-    end = command_line_pop_all(&buffer, a);
+    command_line_pop_all(&buffer, a, sizeof (char));
     printf("%s with %d elements left\n", a, get_used_space(&buffer));
 
 

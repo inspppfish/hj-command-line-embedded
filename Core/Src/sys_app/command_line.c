@@ -21,7 +21,7 @@
 
 typedef command_line_buffer_t buffer_t;
 typedef enum Command_line_error error_t;
-#define asChar(x) *(char *)(x)
+#define asChar *(char *)
 
 int get_free_space(buffer_t *buffer);
 int get_head_tail_distance(buffer_t *buffer);
@@ -31,7 +31,6 @@ void command_line_buffer_init(buffer_t *buffer, size_t size, int n) {
     buffer->head = 0;
     buffer->tail = -1;
     buffer->data = malloc(size);
-    asChar(buffer->data+0) = 'Z';
 }
 
 enum Command_line_error copy_to_command_line_buffer(buffer_t *buffer, const void *source, size_t size, int n) {
@@ -90,40 +89,40 @@ enum Command_line_error  pop_string (buffer_t * buffer, void * arr, size_t n) {
     return command_line_no_error;
 }
 
-void * pop_all (buffer_t * buffer, void * arr) {
-    char * out = arr;
+void * pop_all (buffer_t * buffer, void * arr, size_t single_size) {
+    void * out = arr;
     while(!empty(buffer)) {
-        *out = *(char*)pop(buffer);
-        out++;
+        memcpy(out, pop(buffer), single_size);
+        out += single_size;
     }
-    *out = '\0';
     return out;
 }
 
-void * command_line_pop_all (buffer_t * buffer, void * arr) {
-    return pop_all (buffer, arr);
+void * command_line_pop_all (buffer_t * buffer, void * arr, size_t single_size) {
+    return pop_all (buffer, arr, single_size);
 }
 
 //todo:test
 void * find (buffer_t * buffer, char target) {
     for (int i = buffer->head;  i != buffer->tail+1; i = (i+1)%buffer->size) {
-        if (asChar(buffer->data+i) == target) {
+        if ((*((char*)buffer->data+i)) == target) {
             return buffer->data + i;
         }
     }
+    return NULL;
 }
 
-void * grep_str (buffer_t * buffer, char* target, int len) {
+void * find_str (buffer_t * buffer, char* target, int len) {
     // todo: kmp or lib
 }
 
 
 //
-//   implement statement_t
+//   statement_t
 //
 
 
-// 另一种方式是直接在缓冲区上处理， 这样需要手写对于命令的解析
+// 另一种方式是直接在缓冲区上处理， 这样需要手写parse中一部分
 //error_t for_each(buffer_t * buffer, void * end, error_t fun(char *, void *), void * param) {
 //    for (int i = buffer->head; i != buffer->tail+1; i = (i+1)%buffer->size) {
 //        error_t error = fun(buffer->data + 1, param);
@@ -142,19 +141,30 @@ void * grep_str (buffer_t * buffer, char* target, int len) {
 //    return command_line_no_error;
 //}
 
-//todo:test
+error_t statement_init(statement_t * statement, size_t size) {
+    static int idCount = -1;
+    statement->id = ++idCount;
+    statement->argc = 0;
+    for (int i = 0; i<MAX_TOKEN_COUNT;i++) {
+        statement->argv[i] = NULL;
+    }
+    statement->data = malloc(size);
+    statement->end = statement->data;
+    return command_line_no_error;
+}
+
 error_t copy_out(buffer_t * buffer, const char * end, char * target) {
-    for (int i = buffer->head; buffer->data+i != end; i = (i+1)%buffer->size) {
+    for (int i = buffer->head; buffer->data+i != end && i != buffer->tail+1; i = (i+1)%buffer->size) {
         if (empty(buffer)) {
             return command_line_no_so_much_element;
         }
-        *target = *(char*)buffer->data+i;
+        memcpy(target, buffer->data+i, sizeof(char));
         target++;
     }
     return command_line_no_error;
 }
 
-//todo:test
+
 error_t separate(statement_t * statement) {
     char * p = strtok(statement->data, " ");
     while (p) {
@@ -166,11 +176,10 @@ error_t separate(statement_t * statement) {
 }
 
 // 为了能更多用到库函数， 这里就把缓冲区里的东西copy出来处理了
-// todo:test
 error_t command_line_buffer_analyze (buffer_t * buffer, statement_t * statement) {
     char * end = find(buffer, '\n');
-    if (*end == '\n') {
-        *end = '\0'; // ?不知道用不用
+    if ( end != NULL) {
+        *end = '\0';
         error_t res = copy_out(buffer, end, statement->data);
         separate(statement);
         if (res) {
@@ -180,6 +189,11 @@ error_t command_line_buffer_analyze (buffer_t * buffer, statement_t * statement)
         return command_line_no_complete_statement;
     }
 }
+
+///                        ///
+///       util             ///
+///                        ///
+
 
 #define error_judge_condition(e) \
                     if (error == (e)) {\
@@ -196,9 +210,8 @@ char * error_analyze (error_t error) {
     else error_judge_condition(command_line_too_much_parameter)
     else error_judge_condition(command_line_last_error)
     else {
-        char * ans = malloc(sizeof ("unknown error")+1);
+        char * ans = malloc(sizeof ("unknown error"));
         ans = strcpy(ans, "unknown error");
-        ans[sizeof ("unknown error")/sizeof (char)] = '\0';
         return ans;
     }
 }
