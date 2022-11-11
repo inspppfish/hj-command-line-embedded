@@ -1,2 +1,4 @@
 /cmake-build-debug/
 .ghToken
+/auto_test/*.o
+/auto_test/*.out

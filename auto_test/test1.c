@@ -12,7 +12,7 @@ void debug_output(command_line_buffer_t * buffer) {
 
 int main () {
     command_line_buffer_t buffer;
-    command_line_buffer_init(&buffer, 20*sizeof(char),20);
+    command_line_buffer_init(&buffer, sizeof(char),20);
 
     // 1
     enum Command_line_error e = copy_to_command_line_buffer(&buffer,

@@ -7,9 +7,9 @@ OBJECT := $(foreach t, $(TARGET), $(t).o)
 INCLUDE = ../Core/Inc/
 
 .PHONY clean:
+	@rm command_line.o
 	@rm $(OBJECT)
 	@rm $(TARGET)
-	@rm command_line.o
 
 .PHONY test_all: $(TARGET)
 

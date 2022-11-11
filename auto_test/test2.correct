@@ -4,5 +4,7 @@ command_line_no_so_much_element
 command_line_no_complete_statement
 command_line_too_much_parameter
 command_line_empty_name
+command_line_no_match_type
+command_line_wrong_option_argument
 command_line_last_error
 unknown error

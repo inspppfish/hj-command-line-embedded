@@ -25,11 +25,11 @@ typedef enum Command_line_error error_t;
 int get_free_space(buffer_t *buffer);
 int get_head_tail_distance(buffer_t *buffer);
 
-void command_line_buffer_init(buffer_t *buffer, size_t size, int n) {
+void command_line_buffer_init(buffer_t *buffer, size_t single_size, int n) {
     buffer->size = n;
     buffer->head = 0;
     buffer->tail = -1;
-    buffer->data = malloc(size);
+    buffer->data = malloc(single_size * n);
 }
 
 enum Command_line_error copy_to_command_line_buffer(buffer_t *buffer, const void *source, size_t size, int n) {
@@ -210,6 +210,7 @@ char * error_analyze (error_t error) {
     else error_judge_condition(command_line_too_much_parameter)
     else error_judge_condition(command_line_empty_name)
     else error_judge_condition(command_line_no_match_type)
+    else error_judge_condition(command_line_wrong_option_argument)
     else error_judge_condition(command_line_last_error)
     else {
         char * ans = malloc(sizeof ("unknown error"));
@@ -224,11 +225,12 @@ char * error_analyze (error_t error) {
             ///* command_type_t *///
             ///******************///
 
-error_t command_type_init(command_type_t * type, char * name, char * optName) {
-    int p = 0;
-    while (name[p]) {
-        p++;
-    } // may segfault
+error_t command_type_init(command_type_t * type,
+                          const char * name,
+                          const char * optName,
+                          error_t (* arg_store ) (struct command_t * ),
+                          error_t  (* handler) (option_t * options)) {
+    unsigned int p = strlen(name);
     if (p){
         type->name = malloc(p * sizeof(char));
         strcpy(type->name, name);
@@ -236,16 +238,17 @@ error_t command_type_init(command_type_t * type, char * name, char * optName) {
         type->name = NULL;
         return command_line_empty_name;
     }
-    p = 0;
-    while (optName[p]) {
-        p++;
-    } // may segfault
+    p = strlen(optName);
     if (p) {
         type->optName = malloc(p * sizeof(char));
         strcpy(type->optName, optName);
     }else {
         type->optName = NULL;
+        return command_line_empty_name;
     }
+    type->next = type;
+    type->arg_store = arg_store;
+    type->handler = handler;
     return command_line_no_error;
 }
 
@@ -253,28 +256,31 @@ int type_cmp(command_type_t * type, statement_t * statement) {
     return strcmp(statement->argv[0], type->name);
 }
 
-error_t command_line_type_match(command_type_t type[], int n_type, statement_t * statement, command_type_t ** matched) {
-    for (int i = 0; i< n_type; i++) {
-        if (type_cmp(type + i, statement)) {
-            *matched = type + i;
+error_t command_line_type_match(const command_type_table_t * commandTypeTable, const statement_t * statement, command_type_t ** matched) {
+    command_type_t * i = commandTypeTable->head;
+    do {
+        i = i->next;
+        if (strcmp(i->name, statement->argv[0]) == 0) {
+            *matched = i;
             return command_line_no_error;
         }
-    }
+    } while (i->next != i);
     return command_line_no_match_type;
 }
 
-error_t default_argument_store_handler(command_t * command) {
+error_t default_argument_store_handler(command_t *command) {
     command_type_t * type = command->type;
     statement_t * statement = &command->statement;
     int c;
     int n = 0;
+    opterr = 0;
     while (1) {
         (c = getopt(statement->argc, statement->argv, type->optName));
+        if (optopt) {
+            return command_line_wrong_option_argument;
+        }
         if (c == -1) {
             break;
-        }
-        if (c == '?') {
-            return command_line_wrong_option_argument;
         }
         option_t * option = &command->options[n];
         option->opt = c;
@@ -287,4 +293,26 @@ error_t default_argument_store_handler(command_t * command) {
         command->options[n].opt = '\0';
     }
     return command_line_no_error;
+}
+
+error_t default_handler (option_t * options) {
+    option_t * i = options;
+    while (i->opt_addr != 0) {
+
+        i++;
+    }
+    return command_line_no_error;
+}
+
+                    ///************************///
+                    ///* command_type_table_t *///
+                    ///************************///
+
+error_t command_type_table_init(command_type_table_t * table, int use_default) {
+    if (use_default) {
+        command_type_t * type = malloc(sizeof(command_type_t));
+        command_type_init(type, "default",
+              "q::w::e::r::t::y::u::i::o::p::a::s::d::f::g::h::j::k::l::z::x::c::v::b::n::m::",
+              default_argument_store_handler, default_handler);
+    }
 }

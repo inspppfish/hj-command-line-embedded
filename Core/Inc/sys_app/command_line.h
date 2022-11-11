@@ -10,7 +10,6 @@
 #define MAX_TOKEN_COUNT 20
 #define MAX_OPTION_COUNT 20
 
-struct command_t;
 
 enum Command_line_error {
     command_line_no_error = 0,
@@ -59,21 +58,28 @@ typedef struct {
     char * optArg_addr;
 } option_t;
 
-typedef struct {
-    char * name;
-    char * optName;
-    enum Command_line_error (* arg_store ) (struct command_t * );
-    enum Command_line_error (* handler) (option_t * options);
-} command_type_t;
-
-typedef struct {
-    command_type_t * type;
+typedef struct command_struct_t{
+    struct command_type_struct_t * type;
     statement_t statement;
     option_t options[MAX_OPTION_COUNT];
 } command_t;
 
+typedef struct command_type_struct_t {
+    char * name;
+    char * optName;
+    enum Command_line_error (* arg_store ) (struct command_struct_t * command);
+    enum Command_line_error (* handler) (option_t * options);
+    struct command_type_struct_t * next;
+} command_type_t;
+
+typedef struct {
+    command_type_t * head;
+    int n;
+} command_type_table_t;
+
+
+
 enum Command_line_error statement_init(statement_t * statement, size_t size);
 enum Command_line_error command_line_buffer_analyze (command_line_buffer_t * buffer, statement_t * statement);
-enum Command_line_error command_line_type_match(command_type_t type[], int n_type, statement_t * statement, command_type_t ** matched);
-
+enum Command_line_error command_line_type_match(const command_type_table_t * commandTypeTable, const statement_t * statement, command_type_t ** matched);
 #endif //COMMAND_LINE_EMB_COMMAND_LINE_H

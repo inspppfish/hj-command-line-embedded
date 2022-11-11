@@ -6,7 +6,7 @@
 
 int main () {
     command_line_buffer_t buffer;
-    command_line_buffer_init(&buffer, sizeof(char)*100, 100);
+    command_line_buffer_init(&buffer, sizeof(char), 100);
     copy_to_command_line_buffer(
         &buffer, "this is ok", sizeof("this is ok"), sizeof ("this is ok")/sizeof (char)
     );
