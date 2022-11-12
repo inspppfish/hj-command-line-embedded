@@ -10,10 +10,10 @@
 **                      64Kbytes CCMRAM
 **                      128Kbytes RAM
 **
-**                Set heap size, stack size and stack location according
+**                Set heap length, stack length and stack location according
 **                to application requirements.
 **
-**                Set memory bank area and size if external memory is used
+**                Set memory bank area and length if external memory is used
 **
 **  Target      : STMicroelectronics STM32
 **

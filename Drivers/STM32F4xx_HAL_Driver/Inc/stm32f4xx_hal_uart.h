@@ -154,13 +154,13 @@ typedef struct __UART_HandleTypeDef
 
   const uint8_t                 *pTxBuffPtr;      /*!< Pointer to UART Tx transfer Buffer */
 
-  uint16_t                      TxXferSize;       /*!< UART Tx Transfer size              */
+  uint16_t                      TxXferSize;       /*!< UART Tx Transfer length              */
 
   __IO uint16_t                 TxXferCount;      /*!< UART Tx Transfer Counter           */
 
   uint8_t                       *pRxBuffPtr;      /*!< Pointer to UART Rx transfer Buffer */
 
-  uint16_t                      RxXferSize;       /*!< UART Rx Transfer size              */
+  uint16_t                      RxXferSize;       /*!< UART Rx Transfer length              */
 
   __IO uint16_t                 RxXferCount;      /*!< UART Rx Transfer Counter           */
 

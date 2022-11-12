@@ -25,6 +25,7 @@
 #include "sys_app/command_line.h"
 #include <stdlib.h>
 /* USER CODE END Includes */
+
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN TD */
 

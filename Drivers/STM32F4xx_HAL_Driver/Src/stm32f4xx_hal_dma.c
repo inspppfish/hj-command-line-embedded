@@ -59,7 +59,7 @@
 
      -@-   The FIFO is used mainly to reduce bus usage and to allow data packing/unpacking: it is
            possible to set different Data Sizes for the Peripheral and the Memory (ie. you can set
-           Half-Word data size for the peripheral to access its data register and set Word data size
+           Half-Word data length for the peripheral to access its data register and set Word data length
            for the Memory to gain in access time. Each two half words will be packed and written in
            a single access to a Word in the Memory).
 
@@ -264,7 +264,7 @@ HAL_StatusTypeDef HAL_DMA_Init(DMA_HandleTypeDef *hdma)
     /* Get the FIFO threshold */
     tmp |= hdma->Init.FIFOThreshold;
     
-    /* Check compatibility between FIFO threshold level and size of the memory burst */
+    /* Check compatibility between FIFO threshold level and length of the memory burst */
     /* for INCR4, INCR8, INCR16 bursts */
     if (hdma->Init.MemBurst != DMA_MBURST_SINGLE)
     {
@@ -1205,7 +1205,7 @@ static uint32_t DMA_CalcBaseAndBitshift(DMA_HandleTypeDef *hdma)
 }
 
 /**
-  * @brief  Check compatibility between FIFO threshold level and size of the memory burst
+  * @brief  Check compatibility between FIFO threshold level and length of the memory burst
   * @param  hdma       pointer to a DMA_HandleTypeDef structure that contains
   *                     the configuration information for the specified DMA Stream. 
   * @retval HAL status
@@ -1215,7 +1215,7 @@ static HAL_StatusTypeDef DMA_CheckFifoParam(DMA_HandleTypeDef *hdma)
   HAL_StatusTypeDef status = HAL_OK;
   uint32_t tmp = hdma->Init.FIFOThreshold;
   
-  /* Memory Data size equal to Byte */
+  /* Memory Data length equal to Byte */
   if(hdma->Init.MemDataAlignment == DMA_MDATAALIGN_BYTE)
   {
     switch (tmp)
@@ -1240,7 +1240,7 @@ static HAL_StatusTypeDef DMA_CheckFifoParam(DMA_HandleTypeDef *hdma)
     }
   }
   
-  /* Memory Data size equal to Half-Word */
+  /* Memory Data length equal to Half-Word */
   else if (hdma->Init.MemDataAlignment == DMA_MDATAALIGN_HALFWORD)
   {
     switch (tmp)
@@ -1266,7 +1266,7 @@ static HAL_StatusTypeDef DMA_CheckFifoParam(DMA_HandleTypeDef *hdma)
     }
   }
   
-  /* Memory Data size equal to Word */
+  /* Memory Data length equal to Word */
   else
   {
     switch (tmp)

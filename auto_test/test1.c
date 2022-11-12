@@ -30,8 +30,8 @@ int main () {
     printf("%s\n", (char*)buffer.data);
 
     // 4
-    printf("size: %d, string_size: %d, free space: %d\n",
-           buffer.size, (int)sizeof ("this is ok"), get_free_space(&buffer));
+    printf("length: %d, string_size: %d, free space: %d\n",
+           buffer.length, (int)sizeof ("this is ok"), get_free_space(&buffer));
 
     // 5
     char a[21];
@@ -42,8 +42,8 @@ int main () {
     copy_to_command_line_buffer(&buffer,
                                           "this is ok too",
                                 sizeof ("this is ok too"), sizeof ("this is ok too")/sizeof(char));
-    printf("size: %d, string_size: %d, free space: %d\n",
-           buffer.size, (int)sizeof ("this is ok too"), get_free_space(&buffer));
+    printf("length: %d, string_size: %d, free space: %d\n",
+           buffer.length, (int)sizeof ("this is ok too"), get_free_space(&buffer));
 
     //6
     command_line_pop_all(&buffer, a, sizeof (char));

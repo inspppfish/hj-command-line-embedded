@@ -111,13 +111,13 @@ typedef struct
 
                                         This feature can be modified afterwards using unitary function @ref LL_DMA_SetMemoryIncMode(). */
 
-  uint32_t PeriphOrM2MSrcDataSize; /*!< Specifies the Peripheral data size alignment or Source data size alignment (byte, half word, word)
+  uint32_t PeriphOrM2MSrcDataSize; /*!< Specifies the Peripheral data length alignment or Source data length alignment (byte, half word, word)
                                         in case of memory to memory transfer direction.
                                         This parameter can be a value of @ref DMA_LL_EC_PDATAALIGN
 
                                         This feature can be modified afterwards using unitary function @ref LL_DMA_SetPeriphSize(). */
 
-  uint32_t MemoryOrM2MDstDataSize; /*!< Specifies the Memory data size alignment or Destination data size alignment (byte, half word, word)
+  uint32_t MemoryOrM2MDstDataSize; /*!< Specifies the Memory data length alignment or Destination data length alignment (byte, half word, word)
                                         in case of memory to memory transfer direction.
                                         This parameter can be a value of @ref DMA_LL_EC_MDATAALIGN
 
@@ -264,8 +264,8 @@ typedef struct
 /** @defgroup DMA_LL_EC_OFFSETSIZE OFFSETSIZE
   * @{
   */
-#define LL_DMA_OFFSETSIZE_PSIZE           0x00000000U               /*!< Peripheral increment offset size is linked to the PSIZE */
-#define LL_DMA_OFFSETSIZE_FIXEDTO4        DMA_SxCR_PINCOS           /*!< Peripheral increment offset size is fixed to 4 (32-bit alignment) */
+#define LL_DMA_OFFSETSIZE_PSIZE           0x00000000U               /*!< Peripheral increment offset length is linked to the PSIZE */
+#define LL_DMA_OFFSETSIZE_FIXEDTO4        DMA_SxCR_PINCOS           /*!< Peripheral increment offset length is fixed to 4 (32-bit alignment) */
 /**
   * @}
   */
@@ -760,7 +760,7 @@ __STATIC_INLINE uint32_t LL_DMA_GetMemoryIncMode(DMA_TypeDef *DMAx, uint32_t Str
 }
 
 /**
-  * @brief Set Peripheral size.
+  * @brief Set Peripheral length.
   * @rmtoll CR          PSIZE           LL_DMA_SetPeriphSize
   * @param  DMAx DMAx Instance
   * @param  Stream This parameter can be one of the following values:
@@ -784,7 +784,7 @@ __STATIC_INLINE void LL_DMA_SetPeriphSize(DMA_TypeDef *DMAx, uint32_t Stream, ui
 }
 
 /**
-  * @brief Get Peripheral size.
+  * @brief Get Peripheral length.
   * @rmtoll CR          PSIZE           LL_DMA_GetPeriphSize
   * @param  DMAx DMAx Instance
   * @param  Stream This parameter can be one of the following values:
@@ -807,7 +807,7 @@ __STATIC_INLINE uint32_t LL_DMA_GetPeriphSize(DMA_TypeDef *DMAx, uint32_t Stream
 }
 
 /**
-  * @brief Set Memory size.
+  * @brief Set Memory length.
   * @rmtoll CR          MSIZE           LL_DMA_SetMemorySize
   * @param  DMAx DMAx Instance
   * @param  Stream This parameter can be one of the following values:
@@ -831,7 +831,7 @@ __STATIC_INLINE void LL_DMA_SetMemorySize(DMA_TypeDef *DMAx, uint32_t Stream, ui
 }
 
 /**
-  * @brief Get Memory size.
+  * @brief Get Memory length.
   * @rmtoll CR          MSIZE           LL_DMA_GetMemorySize
   * @param  DMAx DMAx Instance
   * @param  Stream This parameter can be one of the following values:
@@ -854,7 +854,7 @@ __STATIC_INLINE uint32_t LL_DMA_GetMemorySize(DMA_TypeDef *DMAx, uint32_t Stream
 }
 
 /**
-  * @brief Set Peripheral increment offset size.
+  * @brief Set Peripheral increment offset length.
   * @rmtoll CR          PINCOS           LL_DMA_SetIncOffsetSize
   * @param  DMAx DMAx Instance
   * @param  Stream This parameter can be one of the following values:
@@ -877,7 +877,7 @@ __STATIC_INLINE void LL_DMA_SetIncOffsetSize(DMA_TypeDef *DMAx, uint32_t Stream,
 }
 
 /**
-  * @brief Get Peripheral increment offset size.
+  * @brief Get Peripheral increment offset length.
   * @rmtoll CR          PINCOS           LL_DMA_GetIncOffsetSize
   * @param  DMAx DMAx Instance
   * @param  Stream This parameter can be one of the following values:

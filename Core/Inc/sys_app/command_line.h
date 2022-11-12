@@ -27,11 +27,12 @@ enum Command_line_error {
 typedef struct {
     int head; // head是有效数据中的第一位
     int tail; // tail是最后一个有效数据
-    // head == tail + 1 (mod size)的情况，就是空队列；特别地，如果tail == -1，就是刚刚初始化，
+    // head == tail + 1 (mod length)的情况，就是空队列；特别地，如果tail == -1，就是刚刚初始化，
     // 也就是说 tail == head 的时候是有一位数据的
-    // 队列满的时候，tail + 1 == head (mod size)
+    // 队列满的时候，tail + 1 == head (mod length)
 
-    int size;
+    int length;
+    size_t single_size;
     void * data; // never free
 }command_line_buffer_t;
 
@@ -82,4 +83,5 @@ typedef struct {
 enum Command_line_error statement_init(statement_t * statement, size_t size);
 enum Command_line_error command_line_buffer_analyze (command_line_buffer_t * buffer, statement_t * statement);
 enum Command_line_error command_line_type_match(const command_type_table_t * commandTypeTable, const statement_t * statement, command_type_t ** matched);
+enum Command_line_error get_output_statement(command_line_buffer_t * buffer, statement_t * statement);
 #endif //COMMAND_LINE_EMB_COMMAND_LINE_H

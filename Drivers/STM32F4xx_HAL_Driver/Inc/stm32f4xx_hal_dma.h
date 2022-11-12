@@ -251,8 +251,8 @@ typedef struct __DMA_HandleTypeDef
   * @}
   */
 
-/** @defgroup DMA_Peripheral_data_size DMA Peripheral data size
-  * @brief    DMA peripheral data size 
+/** @defgroup DMA_Peripheral_data_size DMA Peripheral data length
+  * @brief    DMA peripheral data length
   * @{
   */ 
 #define DMA_PDATAALIGN_BYTE           0x00000000U                  /*!< Peripheral data alignment: Byte     */
@@ -262,8 +262,8 @@ typedef struct __DMA_HandleTypeDef
   * @}
   */ 
 
-/** @defgroup DMA_Memory_data_size DMA Memory data size
-  * @brief    DMA memory data size 
+/** @defgroup DMA_Memory_data_size DMA Memory data length
+  * @brief    DMA memory data length
   * @{ 
   */
 #define DMA_MDATAALIGN_BYTE           0x00000000U                  /*!< Memory data alignment: Byte     */

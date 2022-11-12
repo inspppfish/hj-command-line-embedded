@@ -90,13 +90,23 @@ int main(void)
   MX_DMA_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-    command_line_buffer_init(&commandLineInputBuffer, 10*sizeof(char), 10);
+  command_line_buffer_init(&commandLineInputBuffer, sizeof(char), 100);
+  statement_t output_statement;
+  statement_init(&output_statement, 100);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+      if (get_output_statement(&commandLineInputBuffer, &output_statement) != command_line_no_error) {
+          HAL_Delay(10);
+          continue;
+      }
+      while (HAL_UART_Transmit_DMA(&huart1, (uint8_t *)output_statement.data, strlen(output_statement.data) +1) != HAL_OK) {
+          HAL_Delay(10);
+      }
+      HAL_Delay(100);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

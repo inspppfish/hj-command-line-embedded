@@ -334,7 +334,7 @@ typedef struct
   __IO uint32_t ESCR;     /*!< DCMI embedded synchronization code register,   Address offset: 0x18 */
   __IO uint32_t ESUR;     /*!< DCMI embedded synchronization unmask register, Address offset: 0x1C */
   __IO uint32_t CWSTRTR;  /*!< DCMI crop window start,                        Address offset: 0x20 */
-  __IO uint32_t CWSIZER;  /*!< DCMI crop window size,                         Address offset: 0x24 */
+  __IO uint32_t CWSIZER;  /*!< DCMI crop window length,                         Address offset: 0x24 */
   __IO uint32_t DR;       /*!< DCMI data register,                            Address offset: 0x28 */
 } DCMI_TypeDef;
 
@@ -1046,7 +1046,7 @@ typedef struct
 
 #define UID_BASE                     0x1FFF7A10UL           /*!< Unique device ID register base address */
 #define FLASHSIZE_BASE               0x1FFF7A22UL           /*!< FLASH Size register base address       */
-#define PACKAGE_BASE                 0x1FFF7BF0UL           /*!< Package size register base address     */
+#define PACKAGE_BASE                 0x1FFF7BF0UL           /*!< Package length register base address     */
 /**
   * @}
   */
@@ -6894,7 +6894,7 @@ typedef struct
 #define FSMC_BCR1_ASYNCWAIT          FSMC_BCR1_ASYNCWAIT_Msk                   /*!<Asynchronous wait                      */
 #define FSMC_BCR1_CPSIZE_Pos         (16U)                                     
 #define FSMC_BCR1_CPSIZE_Msk         (0x7UL << FSMC_BCR1_CPSIZE_Pos)            /*!< 0x00070000 */
-#define FSMC_BCR1_CPSIZE             FSMC_BCR1_CPSIZE_Msk                      /*!<CRAM page size */
+#define FSMC_BCR1_CPSIZE             FSMC_BCR1_CPSIZE_Msk                      /*!<CRAM page length */
 #define FSMC_BCR1_CPSIZE_0           (0x1UL << FSMC_BCR1_CPSIZE_Pos)            /*!< 0x00010000 */
 #define FSMC_BCR1_CPSIZE_1           (0x2UL << FSMC_BCR1_CPSIZE_Pos)            /*!< 0x00020000 */
 #define FSMC_BCR1_CPSIZE_2           (0x4UL << FSMC_BCR1_CPSIZE_Pos)            /*!< 0x00040000 */
@@ -6951,7 +6951,7 @@ typedef struct
 #define FSMC_BCR2_ASYNCWAIT          FSMC_BCR2_ASYNCWAIT_Msk                   /*!<Asynchronous wait                      */
 #define FSMC_BCR2_CPSIZE_Pos         (16U)                                     
 #define FSMC_BCR2_CPSIZE_Msk         (0x7UL << FSMC_BCR2_CPSIZE_Pos)            /*!< 0x00070000 */
-#define FSMC_BCR2_CPSIZE             FSMC_BCR2_CPSIZE_Msk                      /*!<CRAM page size */
+#define FSMC_BCR2_CPSIZE             FSMC_BCR2_CPSIZE_Msk                      /*!<CRAM page length */
 #define FSMC_BCR2_CPSIZE_0           (0x1UL << FSMC_BCR2_CPSIZE_Pos)            /*!< 0x00010000 */
 #define FSMC_BCR2_CPSIZE_1           (0x2UL << FSMC_BCR2_CPSIZE_Pos)            /*!< 0x00020000 */
 #define FSMC_BCR2_CPSIZE_2           (0x4UL << FSMC_BCR2_CPSIZE_Pos)            /*!< 0x00040000 */
@@ -7008,7 +7008,7 @@ typedef struct
 #define FSMC_BCR3_ASYNCWAIT          FSMC_BCR3_ASYNCWAIT_Msk                   /*!<Asynchronous wait                      */
 #define FSMC_BCR3_CPSIZE_Pos         (16U)                                     
 #define FSMC_BCR3_CPSIZE_Msk         (0x7UL << FSMC_BCR3_CPSIZE_Pos)            /*!< 0x00070000 */
-#define FSMC_BCR3_CPSIZE             FSMC_BCR3_CPSIZE_Msk                      /*!<CRAM page size */
+#define FSMC_BCR3_CPSIZE             FSMC_BCR3_CPSIZE_Msk                      /*!<CRAM page length */
 #define FSMC_BCR3_CPSIZE_0           (0x1UL << FSMC_BCR3_CPSIZE_Pos)            /*!< 0x00010000 */
 #define FSMC_BCR3_CPSIZE_1           (0x2UL << FSMC_BCR3_CPSIZE_Pos)            /*!< 0x00020000 */
 #define FSMC_BCR3_CPSIZE_2           (0x4UL << FSMC_BCR3_CPSIZE_Pos)            /*!< 0x00040000 */
@@ -7065,7 +7065,7 @@ typedef struct
 #define FSMC_BCR4_ASYNCWAIT          FSMC_BCR4_ASYNCWAIT_Msk                   /*!<Asynchronous wait                      */
 #define FSMC_BCR4_CPSIZE_Pos         (16U)                                     
 #define FSMC_BCR4_CPSIZE_Msk         (0x7UL << FSMC_BCR4_CPSIZE_Pos)            /*!< 0x00070000 */
-#define FSMC_BCR4_CPSIZE             FSMC_BCR4_CPSIZE_Msk                      /*!<CRAM page size */
+#define FSMC_BCR4_CPSIZE             FSMC_BCR4_CPSIZE_Msk                      /*!<CRAM page length */
 #define FSMC_BCR4_CPSIZE_0           (0x1UL << FSMC_BCR4_CPSIZE_Pos)            /*!< 0x00010000 */
 #define FSMC_BCR4_CPSIZE_1           (0x2UL << FSMC_BCR4_CPSIZE_Pos)            /*!< 0x00020000 */
 #define FSMC_BCR4_CPSIZE_2           (0x4UL << FSMC_BCR4_CPSIZE_Pos)            /*!< 0x00040000 */
@@ -7520,7 +7520,7 @@ typedef struct
 
 #define FSMC_PCR2_ECCPS_Pos          (17U)                                     
 #define FSMC_PCR2_ECCPS_Msk          (0x7UL << FSMC_PCR2_ECCPS_Pos)             /*!< 0x000E0000 */
-#define FSMC_PCR2_ECCPS              FSMC_PCR2_ECCPS_Msk                       /*!<ECCPS[1:0] bits (ECC page size) */
+#define FSMC_PCR2_ECCPS              FSMC_PCR2_ECCPS_Msk                       /*!<ECCPS[1:0] bits (ECC page length) */
 #define FSMC_PCR2_ECCPS_0            (0x1UL << FSMC_PCR2_ECCPS_Pos)             /*!< 0x00020000 */
 #define FSMC_PCR2_ECCPS_1            (0x2UL << FSMC_PCR2_ECCPS_Pos)             /*!< 0x00040000 */
 #define FSMC_PCR2_ECCPS_2            (0x4UL << FSMC_PCR2_ECCPS_Pos)             /*!< 0x00080000 */
@@ -7564,7 +7564,7 @@ typedef struct
 
 #define FSMC_PCR3_ECCPS_Pos          (17U)                                     
 #define FSMC_PCR3_ECCPS_Msk          (0x7UL << FSMC_PCR3_ECCPS_Pos)             /*!< 0x000E0000 */
-#define FSMC_PCR3_ECCPS              FSMC_PCR3_ECCPS_Msk                       /*!<ECCPS[2:0] bits (ECC page size) */
+#define FSMC_PCR3_ECCPS              FSMC_PCR3_ECCPS_Msk                       /*!<ECCPS[2:0] bits (ECC page length) */
 #define FSMC_PCR3_ECCPS_0            (0x1UL << FSMC_PCR3_ECCPS_Pos)             /*!< 0x00020000 */
 #define FSMC_PCR3_ECCPS_1            (0x2UL << FSMC_PCR3_ECCPS_Pos)             /*!< 0x00040000 */
 #define FSMC_PCR3_ECCPS_2            (0x4UL << FSMC_PCR3_ECCPS_Pos)             /*!< 0x00080000 */
@@ -7608,7 +7608,7 @@ typedef struct
 
 #define FSMC_PCR4_ECCPS_Pos          (17U)                                     
 #define FSMC_PCR4_ECCPS_Msk          (0x7UL << FSMC_PCR4_ECCPS_Pos)             /*!< 0x000E0000 */
-#define FSMC_PCR4_ECCPS              FSMC_PCR4_ECCPS_Msk                       /*!<ECCPS[2:0] bits (ECC page size) */
+#define FSMC_PCR4_ECCPS              FSMC_PCR4_ECCPS_Msk                       /*!<ECCPS[2:0] bits (ECC page length) */
 #define FSMC_PCR4_ECCPS_0            (0x1UL << FSMC_PCR4_ECCPS_Pos)             /*!< 0x00020000 */
 #define FSMC_PCR4_ECCPS_1            (0x2UL << FSMC_PCR4_ECCPS_Pos)             /*!< 0x00040000 */
 #define FSMC_PCR4_ECCPS_2            (0x4UL << FSMC_PCR4_ECCPS_Pos)             /*!< 0x00080000 */
@@ -11217,7 +11217,7 @@ typedef struct
 
 #define SDIO_DCTRL_DBLOCKSIZE_Pos      (4U)                                    
 #define SDIO_DCTRL_DBLOCKSIZE_Msk      (0xFUL << SDIO_DCTRL_DBLOCKSIZE_Pos)     /*!< 0x000000F0 */
-#define SDIO_DCTRL_DBLOCKSIZE          SDIO_DCTRL_DBLOCKSIZE_Msk               /*!<DBLOCKSIZE[3:0] bits (Data block size) */
+#define SDIO_DCTRL_DBLOCKSIZE          SDIO_DCTRL_DBLOCKSIZE_Msk               /*!<DBLOCKSIZE[3:0] bits (Data block length) */
 #define SDIO_DCTRL_DBLOCKSIZE_0        (0x1UL << SDIO_DCTRL_DBLOCKSIZE_Pos)     /*!< 0x0010 */
 #define SDIO_DCTRL_DBLOCKSIZE_1        (0x2UL << SDIO_DCTRL_DBLOCKSIZE_Pos)     /*!< 0x0020 */
 #define SDIO_DCTRL_DBLOCKSIZE_2        (0x4UL << SDIO_DCTRL_DBLOCKSIZE_Pos)     /*!< 0x0040 */
@@ -14644,7 +14644,7 @@ typedef struct
 /********************  Bit definition for USB_OTG_DIEPCTL register  ********************/
 #define USB_OTG_DIEPCTL_MPSIZ_Pos                (0U)                          
 #define USB_OTG_DIEPCTL_MPSIZ_Msk                (0x7FFUL << USB_OTG_DIEPCTL_MPSIZ_Pos) /*!< 0x000007FF */
-#define USB_OTG_DIEPCTL_MPSIZ                    USB_OTG_DIEPCTL_MPSIZ_Msk     /*!< Maximum packet size              */
+#define USB_OTG_DIEPCTL_MPSIZ                    USB_OTG_DIEPCTL_MPSIZ_Msk     /*!< Maximum packet length              */
 #define USB_OTG_DIEPCTL_USBAEP_Pos               (15U)                         
 #define USB_OTG_DIEPCTL_USBAEP_Msk               (0x1UL << USB_OTG_DIEPCTL_USBAEP_Pos) /*!< 0x00008000 */
 #define USB_OTG_DIEPCTL_USBAEP                   USB_OTG_DIEPCTL_USBAEP_Msk    /*!< USB active endpoint              */
@@ -14693,7 +14693,7 @@ typedef struct
 /********************  Bit definition for USB_OTG_HCCHAR register  ********************/
 #define USB_OTG_HCCHAR_MPSIZ_Pos                 (0U)                          
 #define USB_OTG_HCCHAR_MPSIZ_Msk                 (0x7FFUL << USB_OTG_HCCHAR_MPSIZ_Pos) /*!< 0x000007FF */
-#define USB_OTG_HCCHAR_MPSIZ                     USB_OTG_HCCHAR_MPSIZ_Msk      /*!< Maximum packet size */
+#define USB_OTG_HCCHAR_MPSIZ                     USB_OTG_HCCHAR_MPSIZ_Msk      /*!< Maximum packet length */
 
 #define USB_OTG_HCCHAR_EPNUM_Pos                 (11U)                         
 #define USB_OTG_HCCHAR_EPNUM_Msk                 (0xFUL << USB_OTG_HCCHAR_EPNUM_Pos) /*!< 0x00007800 */
@@ -14892,7 +14892,7 @@ typedef struct
 
 #define USB_OTG_DIEPTSIZ_XFRSIZ_Pos              (0U)                          
 #define USB_OTG_DIEPTSIZ_XFRSIZ_Msk              (0x7FFFFUL << USB_OTG_DIEPTSIZ_XFRSIZ_Pos) /*!< 0x0007FFFF */
-#define USB_OTG_DIEPTSIZ_XFRSIZ                  USB_OTG_DIEPTSIZ_XFRSIZ_Msk   /*!< Transfer size */
+#define USB_OTG_DIEPTSIZ_XFRSIZ                  USB_OTG_DIEPTSIZ_XFRSIZ_Msk   /*!< Transfer length */
 #define USB_OTG_DIEPTSIZ_PKTCNT_Pos              (19U)                         
 #define USB_OTG_DIEPTSIZ_PKTCNT_Msk              (0x3FFUL << USB_OTG_DIEPTSIZ_PKTCNT_Pos) /*!< 0x1FF80000 */
 #define USB_OTG_DIEPTSIZ_PKTCNT                  USB_OTG_DIEPTSIZ_PKTCNT_Msk   /*!< Packet count */
@@ -14902,7 +14902,7 @@ typedef struct
 /********************  Bit definition for USB_OTG_HCTSIZ register  ********************/
 #define USB_OTG_HCTSIZ_XFRSIZ_Pos                (0U)                          
 #define USB_OTG_HCTSIZ_XFRSIZ_Msk                (0x7FFFFUL << USB_OTG_HCTSIZ_XFRSIZ_Pos) /*!< 0x0007FFFF */
-#define USB_OTG_HCTSIZ_XFRSIZ                    USB_OTG_HCTSIZ_XFRSIZ_Msk     /*!< Transfer size */
+#define USB_OTG_HCTSIZ_XFRSIZ                    USB_OTG_HCTSIZ_XFRSIZ_Msk     /*!< Transfer length */
 #define USB_OTG_HCTSIZ_PKTCNT_Pos                (19U)                         
 #define USB_OTG_HCTSIZ_PKTCNT_Msk                (0x3FFUL << USB_OTG_HCTSIZ_PKTCNT_Pos) /*!< 0x1FF80000 */
 #define USB_OTG_HCTSIZ_PKTCNT                    USB_OTG_HCTSIZ_PKTCNT_Msk     /*!< Packet count */
@@ -14942,7 +14942,7 @@ typedef struct
 
 #define USB_OTG_DOEPCTL_MPSIZ_Pos                (0U)                          
 #define USB_OTG_DOEPCTL_MPSIZ_Msk                (0x7FFUL << USB_OTG_DOEPCTL_MPSIZ_Pos) /*!< 0x000007FF */
-#define USB_OTG_DOEPCTL_MPSIZ                    USB_OTG_DOEPCTL_MPSIZ_Msk     /*!< Maximum packet size */          /*!<Bit 1 */
+#define USB_OTG_DOEPCTL_MPSIZ                    USB_OTG_DOEPCTL_MPSIZ_Msk     /*!< Maximum packet length */          /*!<Bit 1 */
 #define USB_OTG_DOEPCTL_USBAEP_Pos               (15U)                         
 #define USB_OTG_DOEPCTL_USBAEP_Msk               (0x1UL << USB_OTG_DOEPCTL_USBAEP_Pos) /*!< 0x00008000 */
 #define USB_OTG_DOEPCTL_USBAEP                   USB_OTG_DOEPCTL_USBAEP_Msk    /*!< USB active endpoint */
@@ -15017,7 +15017,7 @@ typedef struct
 
 #define USB_OTG_DOEPTSIZ_XFRSIZ_Pos              (0U)                          
 #define USB_OTG_DOEPTSIZ_XFRSIZ_Msk              (0x7FFFFUL << USB_OTG_DOEPTSIZ_XFRSIZ_Pos) /*!< 0x0007FFFF */
-#define USB_OTG_DOEPTSIZ_XFRSIZ                  USB_OTG_DOEPTSIZ_XFRSIZ_Msk   /*!< Transfer size */
+#define USB_OTG_DOEPTSIZ_XFRSIZ                  USB_OTG_DOEPTSIZ_XFRSIZ_Msk   /*!< Transfer length */
 #define USB_OTG_DOEPTSIZ_PKTCNT_Pos              (19U)                         
 #define USB_OTG_DOEPTSIZ_PKTCNT_Msk              (0x3FFUL << USB_OTG_DOEPTSIZ_PKTCNT_Pos) /*!< 0x1FF80000 */
 #define USB_OTG_DOEPTSIZ_PKTCNT                  USB_OTG_DOEPTSIZ_PKTCNT_Msk   /*!< Packet count */

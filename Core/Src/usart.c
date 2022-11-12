@@ -174,6 +174,8 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
 }
 
 /* USER CODE BEGIN 1 */
+
+
 void USART1_IRQHandler(void)
 {
     /* USER CODE BEGIN USART1_IRQn 0 */

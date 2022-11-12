@@ -26,19 +26,20 @@ int get_free_space(buffer_t *buffer);
 int get_head_tail_distance(buffer_t *buffer);
 
 void command_line_buffer_init(buffer_t *buffer, size_t single_size, int n) {
-    buffer->size = n;
+    buffer->length = n;
     buffer->head = 0;
     buffer->tail = -1;
+    buffer->single_size = single_size;
     buffer->data = malloc(single_size * n);
 }
 
 enum Command_line_error copy_to_command_line_buffer(buffer_t *buffer, const void *source, size_t size, int n) {
     if (n <= get_free_space(buffer)) {
-        if (n + buffer->tail < buffer->size) {
+        if (n + buffer->tail < buffer->length) {
             memcpy(buffer->data+buffer->tail+1, source, size);
             buffer->tail += n;
         } else {
-            int right = buffer->size - (buffer->tail+1);
+            int right = buffer->length - (buffer->tail + 1);
             int left = n - right;
             memcpy(buffer->data + buffer->tail + 1, source, right*(size/n));
             memcpy(buffer->data, source+right, left*(size/n));
@@ -53,12 +54,12 @@ enum Command_line_error copy_to_command_line_buffer(buffer_t *buffer, const void
 int get_used_space (const buffer_t * buffer) {
     const int head = buffer->head;
     int tail = buffer->tail; // 想象把环形缓冲区展开成一条纸带
-    tail = head <= tail + 1 ? tail : tail + buffer->size;
+    tail = head <= tail + 1 ? tail : tail + buffer->length;
     return tail - buffer->head + 1;
 }
 
 int get_free_space(buffer_t * buffer) {
-    return buffer->size - get_used_space(buffer);
+    return buffer->length - get_used_space(buffer);
 }
 
 int empty(buffer_t * buffer) {
@@ -69,7 +70,7 @@ int empty(buffer_t * buffer) {
 void * pop(buffer_t * buffer) {
     void * val = buffer->data + buffer->head;
     if (!empty(buffer)) {
-        buffer->head = (buffer->head+1)%buffer->size;
+        buffer->head = (buffer->head+1)%buffer->length;
     } else {
         assert(0); ; // 这个函数是最底层的出队列函数之一，如果调用有问题只能assert了
     }
@@ -103,7 +104,7 @@ void * command_line_pop_all (buffer_t * buffer, void * arr, size_t single_size) 
 
 //todo:test
 void * find (buffer_t * buffer, char target) {
-    for (int i = buffer->head;  i != buffer->tail+1; i = (i+1)%buffer->size) {
+    for (int i = buffer->head;  i != buffer->tail+1; i = (i+1)%buffer->length) {
         if ((*((char*)buffer->data+i)) == target) {
             return buffer->data + i;
         }
@@ -123,7 +124,7 @@ void * find_str (buffer_t * buffer, char* target, int len) {
 
 // 另一种方式是直接在缓冲区上处理， 这样需要手写parse中一部分
 //error_t for_each(buffer_t * buffer, void * end, error_t fun(char *, void *), void * param) {
-//    for (int i = buffer->head; i != buffer->tail+1; i = (i+1)%buffer->size) {
+//    for (int i = buffer->head; i != buffer->tail+1; i = (i+1)%buffer->length) {
 //        error_t error = fun(buffer->data + 1, param);
 //        if (error) {
 //            return error;
@@ -153,12 +154,14 @@ error_t statement_init(statement_t * statement, size_t size) {
 }
 
 error_t copy_out(buffer_t * buffer, const char * end, char * target) {
-    for (int i = buffer->head; buffer->data+i != end && i != buffer->tail+1; i = (i+1)%buffer->size) {
+    for (buffer->head;
+    buffer->data+buffer->head != end && buffer->head != buffer->tail+1;
+    buffer->head = (buffer->head +1)%buffer->length) {
         if (empty(buffer)) {
             return command_line_no_so_much_element;
         }
-        memcpy(target, buffer->data+i, sizeof(char));
-        target++;
+        memcpy(target, buffer->data+buffer->head, sizeof(char));
+        target+=buffer->single_size;
     }
     return command_line_no_error;
 }
@@ -171,6 +174,7 @@ error_t separate(statement_t * statement) {
         statement->argc++;
         p = strtok(NULL, " ");
     }
+    statement->argv[statement->argc] = NULL;
     return command_line_no_error;
 }
 
@@ -315,4 +319,24 @@ error_t command_type_table_init(command_type_table_t * table, int use_default) {
               "q::w::e::r::t::y::u::i::o::p::a::s::d::f::g::h::j::k::l::z::x::c::v::b::n::m::",
               default_argument_store_handler, default_handler);
     }
+}
+
+
+                            ///********///
+                            ///* user *///
+                            ///********///
+
+
+error_t command_line_input_buffer_init (buffer_t * buffer, size_t single_size, int n) {
+    command_line_buffer_init(buffer, single_size, n);
+    return command_line_no_error;
+}
+
+error_t command_line_output_buffer_init(buffer_t * buffer, size_t single_size, int n) {
+    command_line_buffer_init(buffer, single_size, n);
+    return command_line_no_error;
+}
+
+error_t get_output_statement(buffer_t * buffer, statement_t * statement) {
+    return command_line_buffer_analyze(buffer, statement);
 }
