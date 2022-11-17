@@ -97,8 +97,7 @@ LoopFillZerobss:
     bl __libc_init_array
 /* Call the application's entry point.*/
   bl  main
-  bx  lr    
-.length  Reset_Handler, .-Reset_Handler
+  bx  lr
 
 /**
  * @brief  This is the code that gets called when the processor receives an 
@@ -111,7 +110,6 @@ LoopFillZerobss:
 Default_Handler:
 Infinite_Loop:
   b  Infinite_Loop
-  .length  Default_Handler, .-Default_Handler
 /******************************************************************************
 *
 * The minimal vector table for a Cortex M3. Note that the proper constructs
@@ -121,7 +119,6 @@ Infinite_Loop:
 *******************************************************************************/
    .section  .isr_vector,"a",%progbits
   .type  g_pfnVectors, %object
-  .length  g_pfnVectors, .-g_pfnVectors
     
     
 g_pfnVectors:
