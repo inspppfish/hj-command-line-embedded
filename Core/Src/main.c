@@ -99,14 +99,17 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-      if (get_output_statement(&commandLineInputBuffer, &output_statement) != command_line_no_error) {
+//      if (get_output_statement(&commandLineInputBuffer, &output_statement) != command_line_no_error) {
+//          HAL_Delay(10);
+//          continue;
+//      }
+//      while (HAL_UART_Transmit_DMA(&huart1, (uint8_t *)output_statement.data, strlen(output_statement.data) +1) != HAL_OK) {
+//          HAL_Delay(10);
+//      }
+      while (HAL_UART_Transmit_DMA(&huart1, (uint8_t *)"hello\n", strlen("hello\n")) != HAL_OK) {
           HAL_Delay(10);
-          continue;
       }
-      while (HAL_UART_Transmit_DMA(&huart1, (uint8_t *)output_statement.data, strlen(output_statement.data) +1) != HAL_OK) {
-          HAL_Delay(10);
-      }
-      HAL_Delay(100);
+//      HAL_Delay(100);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
