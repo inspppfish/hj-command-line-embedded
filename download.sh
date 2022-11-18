@@ -1,0 +1,1 @@
+/usr/bin/openocd -s /usr/share/openocd/scripts -f /home/insppp/mysource/hj_command_line_system/stm32f4discovery.cfg -c "tcl_port disabled" -c "gdb_port disabled" -c "tcl_port disabled" -c "program \"/home/insppp/mysource/hj_command_line_system/command_line_emb/cmake-build-debug/command_line_emb.elf\"" -c reset -c shutdown
